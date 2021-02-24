@@ -1,0 +1,17 @@
+{% if resource_list %}
+
+    <div id="resource_list"></div>
+        <ul>
+            {% for resource in resource_list %}
+                <li> <a href="{% url 'journal_entries:detail' resource.id %}">{{ resource }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% else %}
+
+    <div id="no_resource_statement">
+        <p> No resources </p>
+    </div>
+
+{% endif %}
