@@ -1,7 +1,12 @@
 from django import forms
+from .models import Resource
 
 
-class ResourceForm(forms.Form):
+class ResourceForm(forms.ModelForm):
+    class Meta:
+        model = Resource
+        exclude = ['pub_date']
+
     title = forms.CharField(
         label='Title',
         max_length=50
@@ -14,10 +19,12 @@ class ResourceForm(forms.Form):
 
     link = forms.URLField()
 
-    language = forms.ModelMultipleChoiceField(
-        label='Add Language'
+    language = forms.CharField(
+        label='Add Language',
+        max_length=50
     )
 
-    framework = forms.ModelChoiceField(
-        label='Add Framework'
+    framework = forms.CharField(
+        label='Add Framework',
+        max_length=50
     )

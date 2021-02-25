@@ -5,6 +5,8 @@ class Resource(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     link = models.URLField()
+    language = models.CharField(max_length=50)
+    framework = models.CharField(max_length=50)
     pub_date = models.DateTimeField('date added')
 
     def __str__(self):
