@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 import datetime
 from .forms import ResourceForm
 from django.views import generic
@@ -27,7 +27,7 @@ class IndexView(generic.FormView):
             new_resource.pub_date = datetime.datetime.now()
             new_resource.save()
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(reverse('journal_entries:index'))
 
 
 class DetailView(generic.DetailView):

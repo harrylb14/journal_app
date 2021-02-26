@@ -1,11 +1,16 @@
 {% if resource_list %}
 
-    <div id="resource_list"></div>
-        <ul>
+    <div>
+        <table id="resource_list">
             {% for resource in resource_list %}
-                <li> <a href="{% url 'journal_entries:detail' resource.id %}">{{ resource }}</a></li>
+                <tr>
+                    <td><a href="{{ resource.link }}" id="resource_title">  {{ resource.title }} </a></td>
+                    <td> {{ resource.language }}</td>
+                    <td> {{ resource.framework }}</td>
+                    <td> {{ resource.pub_date|date:"d-b-y" }}</td>
+                </tr>
             {% endfor %}
-        </ul>
+        </table>
     </div>
 
 {% else %}
