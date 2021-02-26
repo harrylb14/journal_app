@@ -1,0 +1,20 @@
+{% for resource in resource_list %}
+    <tr>
+        <td><a href="{{ resource.link }}" id="resource_title">  {{ resource.title }} </a></td>
+        <td> {{ resource.language }}</td>
+        <td> {{ resource.framework }}</td>
+        <td> {{ resource.pub_date|date:"d b y" }} </td>
+        <td>
+            <form method="post" action="{% url 'journal_entries:delete_resource' resource.id %}">
+                {% csrf_token %}
+                <button type="submit" id="delete_resource" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </form>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="7" class="text-center bg-warning">No resources/td>
+    </tr>
+{% endfor %}

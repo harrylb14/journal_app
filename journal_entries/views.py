@@ -44,11 +44,31 @@ class DeleteView(DeleteView):
 
 
 def create_resource_ajax(request):
-    form = ResourceForm()
-    context = {'form': form}
-    html_form = render_to_string('journal_entries/partial_resource_create.html',
-                                 context,
-                                 request=request,
-                                 )
+    data = dict()
 
-    return JsonResponse({'html_form': html_form})
+    if request.method == 'POST':
+        form = ResourceForm(request.POST)
+        if form.is_valid():
+            new_resource = form.save(commit=False)
+            new_resource.pub_date = datetime.datetime.now()
+            new_resource.save()
+            data['form_is_valid'] = True
+
+            resource_list = Resource.objects.all().order_by('-pub_date')
+            data['html_resource_list'] = render_to_string('journal_entries/partial_resource_list.html', {
+                'resource_list': resource_list
+            })
+
+        else:
+            data['form_is_valid'] = False
+
+    else:
+        form = ResourceForm()
+
+    context = {'form': form}
+    data['html_form'] = render_to_string('journal_entries/partial_resource_create.html',
+                                         context,
+                                         request=request,
+                                         )
+
+    return JsonResponse(data)
