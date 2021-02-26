@@ -1,2 +1,26 @@
-{% include "journal_entries/resource_form.html" with object=form %}
-{% include "journal_entries/resource_list.html" with object=resource_list %}
+{% extends 'journal_entries/base.html' %}
+{% load static %}
+
+{% block javascript %}
+    <script src="{% static 'journal_entries/js/resource.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<h1> Journal Entries </h1>
+
+<p>
+    <button type="button" class="btn btn-primary js-create-resource">
+      <span class="glyphicon glyphicon-plus"></span>
+        Add resource
+    </button>
+</p>
+
+{% include "journal_entries/resource_list.html" with object=queryset %}
+
+<div class="modal fade" id="modal-resource">
+    <div class="modal-dialog">
+      <div class="modal-content">
+    </div>
+</div>
+
+{% endblock %}
