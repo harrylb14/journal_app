@@ -1,5 +1,3 @@
-{% load widget_tweaks %}
-
 <form method="post" action="{% url 'journal_entries:ajax_create' %}" class="js-resource-create-form">
   {% csrf_token %}
   <div class="modal-header">
@@ -9,15 +7,7 @@
     </button>
   </div>
   <div class="modal-body">
-    {% for field in form %}
-      <div class="form-group{% if field.errors %} has-error{% endif %}">
-        {{ field.label_tag }}
-        {% render_field field class="form-control" %}
-        {% for error in field.errors %}
-          <p class="help-block">{{ error }}</p>
-        {% endfor %}
-      </div>
-    {% endfor %}
+    {% include 'journal_entries/partial_resource_form.html' %}
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

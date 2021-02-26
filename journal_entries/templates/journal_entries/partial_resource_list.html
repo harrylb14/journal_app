@@ -5,16 +5,24 @@
         <td> {{ resource.framework }}</td>
         <td> {{ resource.pub_date|date:"d b y" }} </td>
         <td>
-            <form method="post" action="{% url 'journal_entries:delete_resource' resource.id %}">
+            <button type="button" class="btn btn-warning btn-sm js-update-resource"
+                data-url="{% url 'journal_entries:ajax_update' resource.id %}">
+                <span class="octicon octicon-pencil"></span>
+            </button>
+        </td>
+        <td>
+            <form method="post" action="{% url 'journal_entries:ajax_delete' resource.id %}">
                 {% csrf_token %}
-                <button type="submit" id="delete_resource" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="close js-delete-resource"
+                        data-url="{% url 'journal_entries:ajax_delete' resource.id %}"
+                        aria-label="Close">
+                    <span class="octicon octicon-trashcan"></span>
                 </button>
             </form>
         </td>
     </tr>
 {% empty %}
     <tr>
-        <td colspan="7" class="text-center bg-warning">No resources/td>
+        <td colspan="7" class="text-center bg-warning">No resources</td>
     </tr>
 {% endfor %}

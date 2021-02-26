@@ -38,22 +38,59 @@ class DetailView(DetailView):
     template_name = 'journal_entries/detail.html'
 
 
-class DeleteView(DeleteView):
-    model = Resource
-    success_url = reverse_lazy('journal_entries:index')
-
-
 def create_resource_ajax(request):
+    if request.method == 'POST':
+        form = ResourceForm(request.POST)
+    else:
+        form = ResourceForm()
+
+    return save_resource_form(request, form, 'journal_entries/partial_resource_create.html')
+
+
+def update_resource_ajax(request, resource_id):
+    resource = get_object_or_404(Resource, pk=resource_id)
+
+    if request.method == 'POST':
+        form = ResourceForm(request.POST, instance=resource)
+    else:
+        form = ResourceForm(instance=resource)
+
+    return save_resource_form(request, form, 'journal_entries/partial_resource_update.html')
+
+
+def delete_resource_ajax(request, resource_id):
+    resource = get_object_or_404(Resource, pk=resource_id)
+    data = dict()
+    if request.method == 'POST':
+        resource.delete()
+        data['form_is_valid'] = True
+        resource_list = Resource.objects.all()
+        data['html_resource_list'] = render_to_string('journal_entries/partial_resource_list.html', {
+            'resource_list': resource_list
+        })
+    else:
+        context = {'resource': resource}
+        data['html_form'] = render_to_string('journal_entries/partial_resource_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+
+    return JsonResponse(data)
+
+
+def save_resource_form(request, form, template_name):
     data = dict()
 
     if request.method == 'POST':
-        form = ResourceForm(request.POST)
         if form.is_valid():
             new_resource = form.save(commit=False)
-            new_resource.pub_date = datetime.datetime.now()
-            new_resource.save()
-            data['form_is_valid'] = True
 
+            if new_resource.pub_date is None:
+                new_resource.pub_date = datetime.datetime.now()
+
+            new_resource.save()
+
+            data['form_is_valid'] = True
             resource_list = Resource.objects.all().order_by('-pub_date')
             data['html_resource_list'] = render_to_string('journal_entries/partial_resource_list.html', {
                 'resource_list': resource_list
@@ -62,11 +99,8 @@ def create_resource_ajax(request):
         else:
             data['form_is_valid'] = False
 
-    else:
-        form = ResourceForm()
-
     context = {'form': form}
-    data['html_form'] = render_to_string('journal_entries/partial_resource_create.html',
+    data['html_form'] = render_to_string(template_name,
                                          context,
                                          request=request,
                                          )

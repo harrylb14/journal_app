@@ -1,8 +1,9 @@
 $(function () {
 
-  $(".js-create-resource").click(function () {
+  var loadForm = function () {
+    var btn = $(this);
     $.ajax({
-      url: '/create/',
+      url: btn.attr("data-url"),
       type: 'get',
       dataType: 'json',
       beforeSend: function () {
@@ -12,9 +13,10 @@ $(function () {
         $("#modal-resource .modal-content").html(data.html_form);
       }
     });
-  });
+  };
 
-  $("#modal-resource").on("submit", ".js-resource-create-form", function () {
+
+  var saveForm = function () {
     var form = $(this);
 
     $.ajax({
@@ -33,5 +35,16 @@ $(function () {
       }
     });
     return false;
-  });
+  };
+
+  $(".js-create-resource").click(loadForm);
+  $("#modal-resource").on("submit", ".js-resource-create-form", saveForm);
+
+  $("#resource_list").on("click", ".js-update-resource", loadForm);
+  $("#modal-resource").on("submit", ".js-resource-update-form", saveForm);
+
+  $("#resource_list").on("click", ".js-delete-resource", loadForm);
+  $("#modal-resource").on("submit", ".js-resource-delete-form", saveForm);
+
+
 });

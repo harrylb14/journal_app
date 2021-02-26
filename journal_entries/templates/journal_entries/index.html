@@ -9,8 +9,10 @@
 <h1> Journal Entries </h1>
 
 <p>
-    <button type="button" class="btn btn-primary js-create-resource">
-      <span class="glyphicon glyphicon-plus"></span>
+    <button type="button"
+            class="btn btn-primary js-create-resource"
+            data-url="{% url 'journal_entries:ajax_create' %}">
+      <span class="octicon octicon-pin"></span>
         Add resource
     </button>
 </p>
