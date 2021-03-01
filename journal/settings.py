@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'django_tables2',
+    'django_ajax_tables',
 ]
 
 MIDDLEWARE = [

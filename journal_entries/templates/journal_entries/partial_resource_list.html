@@ -1,4 +1,6 @@
+
 {% for resource in resource_list %}
+
     <tr>
         <td><a href="{{ resource.link }}" id="resource_title">  {{ resource.title }} </a></td>
         <td> {{ resource.language }}</td>
@@ -26,3 +28,7 @@
         <td colspan="7" class="text-center bg-warning">No resources</td>
     </tr>
 {% endfor %}
+
+
+
+

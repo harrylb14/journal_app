@@ -1,0 +1,8 @@
+<form method="post" action="{% url 'journal_entries:ajax_delete' record.id %}">
+    {% csrf_token %}
+    <button type="button" class="close js-delete-resource"
+            data-url="{% url 'journal_entries:ajax_delete' record.id %}"
+            aria-label="Close">
+        <span class="octicon octicon-trashcan"></span>
+    </button>
+</form>

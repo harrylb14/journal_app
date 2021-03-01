@@ -8,42 +8,26 @@ from django.views.generic import FormView, DeleteView, DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormMixin
 from django.core.paginator import Paginator
+import django_tables2 as tables
 
-from .models import Resource
+from .models import Resource, ResourceTable
 
 
-class IndexView(ListView):
+class IndexView(tables.SingleTableView):
     template_name = 'journal_entries/index.html'
     model = Resource
-    paginate_by = 2
 
     def get_queryset(self):
         return Resource.objects.order_by('-pub_date')
 
-    def paginator(self, request):
-
-        context = self.get_context_data()
-        if request.method == 'POST':
-            page_no = request.POST.get('page_no', None)
-            results = list(context['paginator'].page(page_no).object_list)
-            return JsonResponse({'results': results})
-
-        return render(request, 'index/html', context)
-
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
 
-        model = self.get_queryset()
-        per_page = self.paginate_by
-        paginator = Paginator(model, per_page)
-        first_page = paginator.page(1).object_list
-        page_range = paginator.page_range
         form = ResourceForm()
+        table = ResourceTable(self.get_queryset())
 
-        context['paginator'] = paginator,
-        context['first_page'] = first_page,
-        context['page_range'] = page_range,
-        context['form'] = form,
+        context['form'] = form
+        context['table'] = table
 
         return context
 
@@ -57,9 +41,10 @@ class IndexView(ListView):
         return HttpResponseRedirect(reverse('journal_entries:index'))
 
 
-class DetailView(DetailView):
-    model = Resource
-    template_name = 'journal_entries/detail.html'
+class TableView(tables.SingleTableView):
+    table_class = ResourceTable
+    queryset = Resource.objects.order_by('-pub_date')
+    template_name = 'resource_table.html'
 
 
 def create_resource_ajax(request):
