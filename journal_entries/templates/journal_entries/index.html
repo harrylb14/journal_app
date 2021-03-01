@@ -1,13 +1,14 @@
 {% extends 'journal_entries/base.html' %}
 {% load static %}
-{% load render_table from django_tables2 %}
+{% load django_tables2 %}
+{% load ajax_table %}
 
 {% block javascript %}
     <script src="{% static 'journal_entries/js/resource.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-<h1> Journal Entries </h1>
+<h1> Journal Entries </h1> <br>
 
 <p>
     <button type="button"
@@ -16,9 +17,9 @@
       <span class="octicon octicon-pin"></span>
         Add resource
     </button>
-</p>
+</p> <br>
 
-{% render_table table %}
+{% ajax_table "resource_list" "journal_entries:ajax_table" %}
 
 <!--<div class="pagination">-->
 <!--    <span class="step-links">-->

@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
+from django_tables2 import RequestConfig
+
 from .forms import ResourceForm
 from django.views.generic import FormView, DeleteView, DetailView
 from django.views.generic.list import ListView
@@ -39,12 +41,6 @@ class IndexView(tables.SingleTableView):
             new_resource.save()
 
         return HttpResponseRedirect(reverse('journal_entries:index'))
-
-
-class TableView(tables.SingleTableView):
-    table_class = ResourceTable
-    queryset = Resource.objects.order_by('-pub_date')
-    template_name = 'resource_table.html'
 
 
 def create_resource_ajax(request):
@@ -117,13 +113,7 @@ def save_resource_form(request, form, template_name):
     return JsonResponse(data)
 
 
-def paginate(request):
-    model = Resource.objects.order_by('-pub_date')
-    number_of_resources = 2
-    paginator = Paginator(model, number_of_resources)
-    if request.method == 'POST':
-        page_n = request.POST.get('page_n', None)
-        results = list(paginator.page(page_n).object_list())
-        return JsonResponse({'results': results})
-
-    return HttpResponseRedirect(reverse('journal_entries:index'))
+def ajax_table(request):
+    table = ResourceTable(Resource.objects.all())
+    RequestConfig(request).configure(table)
+    return HttpResponse(table.as_html(request))
