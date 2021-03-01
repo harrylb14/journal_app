@@ -1,0 +1,73 @@
+[
+  {
+    "model": "journal_entries.languages",
+    "pk": 1,
+    "fields": {
+       "tag": "Python"
+    }
+  },
+  {
+    "model": "journal_entries.languages",
+    "pk": 2,
+    "fields": {
+      "tag": "JavaScript"
+    }
+  },
+  {
+    "model": "journal_entries.languages",
+    "pk": 3,
+    "fields": {
+       "tag": "Ruby"
+    }
+  },
+  {
+    "model": "journal_entries.languages",
+    "pk": 4,
+    "fields": {
+      "tag": "Java"
+    }
+  },
+  {
+    "model": "journal_entries.languages",
+    "pk": 5,
+    "fields": {
+       "tag": "C"
+    }
+  },
+  {
+    "model": "journal_entries.languages",
+    "pk": 6,
+    "fields": {
+      "tag": "C#"
+    }
+  },
+
+  {
+    "model": "journal_entries.languages",
+    "pk": 7,
+    "fields": {
+      "tag": "HTML/CSS"
+    }
+  },
+  {
+    "model": "journal_entries.languages",
+    "pk": 8,
+    "fields": {
+       "tag": "PHP"
+    }
+  },
+  {
+    "model": "journal_entries.languages",
+    "pk": 9,
+    "fields": {
+      "tag": "SQL"
+    }
+  },
+  {
+    "model": "journal_entries.languages",
+    "pk": 10,
+    "fields": {
+      "tag": "General"
+    }
+  }
+]
