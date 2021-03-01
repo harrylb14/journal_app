@@ -46,5 +46,28 @@ $(function () {
   $("#resource_list").on("click", ".js-delete-resource", loadForm);
   $("#modal-resource").on("submit", ".js-resource-delete-form", saveForm);
 
+  $('.pagination a').click(function(event){
+    event.preventDefault();
+    var page_no = $(this).attr('href');
+    // ajax
+        $.ajax({
+                type: "POST",
+                url: "{% url 'journal_entries:ajax_pagination' %}",
+                data : {
+                    page_no : page_no,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function (resp) {
+                //loop
+                $('#resource_list tbody').html('')
+               $.each(resp.results, function(i, val) {
+                 //apending posts
+                $('#resource_list tbody').append('<h2>' + val.title + '</h2>')
+               });
+            },
+            error: function () {}
+        }); //
+
+});
 
 });
