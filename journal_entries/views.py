@@ -115,5 +115,5 @@ def save_resource_form(request, form, template_name):
 
 def ajax_table(request):
     table = ResourceTable(Resource.objects.all())
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={'per_page': 5}).configure(table)
     return HttpResponse(table.as_html(request))

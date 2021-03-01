@@ -20,7 +20,8 @@ class Resource(models.Model):
 class ResourceTable(tables.Table):
     class Meta:
         model = Resource
-        template_name = "journal_entries/resource_list.html"
+        # template_name = "journal_entries/resource_list.html"
+        template_name = "django_tables2/bootstrap4.html"
         sequence = ('title', 'language', 'framework', 'pub_date')
         exclude = ('id', 'description', 'link')
 
