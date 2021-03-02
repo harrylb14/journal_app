@@ -7,7 +7,7 @@ from .models import Resource, Language, Framework
 class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields=['title', 'description', 'link', 'language', 'framework']
+        fields = ['title', 'description', 'link', 'language', 'framework']
 
     title = forms.CharField(
         label='Title',

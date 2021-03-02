@@ -1,7 +1,7 @@
 {% extends 'journal_entries/base.html' %}
 {% load static %}
 {% load django_tables2 %}
-{% load ajax_table %}
+
 
 {% block javascript %}
     <script src="{% static 'journal_entries/js/resource.js' %}"></script>
@@ -17,16 +17,19 @@
       <span class="octicon octicon-pin"></span>
         Add resource
     </button>
-</p> <br>
+    <input id="myInputTextField" style="height: 40px; border-radius: 25px;" placeholder="search resources...">
+</p>
+
+<br>
 
 {% include 'journal_entries/partial_resource_list.html' %}
+
+<script src="{% static 'journal_entries/js/datatable.js' %}"></script>
 
 <div class="modal fade" id="modal-resource">
     <div class="modal-dialog">
       <div class="modal-content">
     </div>
 </div>
-
-
 
 {% endblock %}

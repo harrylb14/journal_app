@@ -1,7 +1,5 @@
 $(function () {
 
-
-
   var loadForm = function () {
     var btn = $(this);
     $.ajax({
@@ -28,10 +26,11 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-
             $("#resource_list tbody").html(data.html_resource_list);
             $("#modal-resource").modal("hide");
-
+            $('#resource_list').DataTable().clear()
+            $('#resource_list').html(data['html_resource_list'])
+            reloadDataform()
         }
         else {
           $("#modal-resource .modal-content").html(data.html_form);
@@ -50,4 +49,15 @@ $(function () {
   $("#resource_list").on("click", ".js-delete-resource", loadForm);
   $("#modal-resource").on("submit", ".js-resource-delete-form", saveForm);
 
+  var reloadDataform = function () {
+    $('#resource_list').DataTable( {
+                "sDom": 'lrtip',
+                destroy:true,
+                "info" : false,
+                "pageLength": 5,
+                "lengthChange": false,
+                "order": [[ 3, "desc" ]],
+                "ordering": false
+            })
+    }
 });

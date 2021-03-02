@@ -67,10 +67,8 @@ def delete_resource_ajax(request, resource_id):
     if request.method == 'POST':
         resource.delete()
         data['form_is_valid'] = True
-        resource_list = Resource.objects.all()
-        data['html_resource_list'] = render_to_string('journal_entries/partial_resource_list.html', {
-            'resource_list': resource_list
-        })
+        resource_list = Resource.objects.order_by('-pub_date')
+        data['html_resource_list'] = ResourceTable(resource_list).as_html(request)
     else:
         context = {'resource': resource}
         data['html_form'] = render_to_string('journal_entries/partial_resource_delete.html',
@@ -103,11 +101,8 @@ def save_resource_form(request, form, template_name):
                 new_resource.frameworks.add(framework)
 
             data['form_is_valid'] = True
-            resource_list = Resource.objects.all().order_by('-pub_date')
-            data['html_resource_list'] = render_to_string('journal_entries/partial_resource_list.html', {
-                'resource_list': resource_list
-            })
-
+            resource_list = Resource.objects.order_by('-pub_date')
+            data['html_resource_list'] = ResourceTable(resource_list).as_html(request)
         else:
             data['form_is_valid'] = False
 
@@ -120,8 +115,8 @@ def save_resource_form(request, form, template_name):
     return JsonResponse(data)
 
 
-def ajax_table(request):
-    table = ResourceTable(Resource.objects.all())
-    table.order_by = '-pub_date'
-    RequestConfig(request, paginate={'per_page': 5}).configure(table)
-    return HttpResponse(table.as_html(request))
+# def ajax_table(request):
+#     table = ResourceTable(Resource.objects.all())
+#     table.order_by = '-pub_date'
+#     RequestConfig(request, paginate={'per_page': 5}).configure(table)
+#     return HttpResponse(table.as_html(request))

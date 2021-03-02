@@ -11,6 +11,8 @@ class ResourceTable(tables.Table):
         template_name = "django_tables2/bootstrap4.html"
         sequence = ('title', 'languages', 'frameworks', 'pub_date')
         exclude = ('id', 'description', 'link')
+        attrs = {'id': 'resource_list'}
+        orderable = False
 
     def render_title(self, record, value):
         resource_title = value
