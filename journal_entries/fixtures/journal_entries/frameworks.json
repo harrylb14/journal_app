@@ -1,0 +1,93 @@
+[
+  {
+    "model": "journal_entries.framework",
+    "pk": 1,
+    "fields": {
+       "tag": "Django"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 2,
+    "fields": {
+      "tag": "Angular"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 3,
+    "fields": {
+       "tag": "Flask"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 4,
+    "fields": {
+      "tag": "React"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 5,
+    "fields": {
+       "tag": "Spring"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 6,
+    "fields": {
+      "tag": "Testing"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 7,
+    "fields": {
+       "tag": "Rails"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 8,
+    "fields": {
+      "tag": "Docker"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 9,
+    "fields": {
+       "tag": "Kubernetes"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 10,
+    "fields": {
+      "tag": "AWS"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 11,
+    "fields": {
+      "tag": "PostgreSQL"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 12,
+    "fields": {
+      "tag": "MySQL"
+    }
+  },
+  {
+    "model": "journal_entries.framework",
+    "pk": 13,
+    "fields": {
+      "tag": "General"
+    }
+  }
+]

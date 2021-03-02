@@ -1,3 +1,9 @@
+{% block headers %}
+{{ form.media.css }}
+{% endblock %}
+
+{{form.media.js}}
+
 <form method="post" action="{% url 'journal_entries:ajax_create' %}" class="js-resource-create-form">
   {% csrf_token %}
   <div class="modal-header">

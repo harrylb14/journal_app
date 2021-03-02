@@ -1,5 +1,7 @@
 $(function () {
 
+
+
   var loadForm = function () {
     var btn = $(this);
     $.ajax({
@@ -26,8 +28,10 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#resource_list tbody").html(data.html_resource_list);
-          $("#modal-resource").modal("hide");
+
+            $("#resource_list tbody").html(data.html_resource_list);
+            $("#modal-resource").modal("hide");
+
         }
         else {
           $("#modal-resource .modal-content").html(data.html_form);

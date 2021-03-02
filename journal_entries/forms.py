@@ -1,11 +1,13 @@
 from django import forms
-from .models import Resource
+from django_select2.forms import Select2MultipleWidget
+
+from .models import Resource, Language, Framework
 
 
 class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
-        exclude = ['pub_date']
+        fields=['title', 'description', 'link', 'language', 'framework']
 
     title = forms.CharField(
         label='Title',
@@ -19,12 +21,26 @@ class ResourceForm(forms.ModelForm):
 
     link = forms.URLField()
 
-    language = forms.CharField(
+    language = forms.ModelMultipleChoiceField(
         label='Add Language',
-        max_length=50
+        queryset=Language.objects.all(),
+        widget=Select2MultipleWidget(
+            attrs={
+                'style': 'float: center; width: 370px',
+                'data-maximum-selection-length': 10
+            },
+        )
     )
 
-    framework = forms.CharField(
-        label='Add Framework',
-        max_length=50
+    framework = forms.ModelMultipleChoiceField(
+        label='Add Framework/Technology',
+        queryset=Framework.objects.all(),
+        widget=Select2MultipleWidget(
+            attrs={
+                'style': 'float: center; width: 370px',
+                'data-maximum-selection-length': 10
+            },
+        )
     )
+
+

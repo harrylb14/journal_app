@@ -1,3 +1,9 @@
+{% block headers %}
+{{ form.media.css }}
+{% endblock %}
+
+{{form.media.js}}
+
 <form method="post" action="{% url 'journal_entries:ajax_update' form.instance.pk %}" class="js-resource-update-form">
   {% csrf_token %}
   <div class="modal-header">

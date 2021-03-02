@@ -1,18 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.utils import timezone
 from django_tables2 import RequestConfig
 
 from .forms import ResourceForm
-from django.views.generic import FormView, DeleteView, DetailView
-from django.views.generic.list import ListView
-from django.views.generic.edit import FormMixin
-from django.core.paginator import Paginator
 import django_tables2 as tables
 
-from .models import Resource, ResourceTable
+from .models import Resource
+from .tables import ResourceTable
 
 
 class IndexView(tables.SingleTableView):
@@ -36,6 +33,7 @@ class IndexView(tables.SingleTableView):
     def post(self, request):
         form = ResourceForm(data=request.POST)
         if form.is_valid():
+
             new_resource = form.save(commit=False)
             new_resource.pub_date = timezone.now()
             new_resource.save()
@@ -88,12 +86,21 @@ def save_resource_form(request, form, template_name):
 
     if request.method == 'POST':
         if form.is_valid():
+
             new_resource = form.save(commit=False)
 
             if new_resource.pub_date is None:
                 new_resource.pub_date = timezone.now()
-
             new_resource.save()
+
+            languages = list(form.cleaned_data['language'])
+            frameworks = list(form.cleaned_data['framework'])
+
+            for language in languages:
+                new_resource.languages.add(language)
+
+            for framework in frameworks:
+                new_resource.frameworks.add(framework)
 
             data['form_is_valid'] = True
             resource_list = Resource.objects.all().order_by('-pub_date')
@@ -115,5 +122,6 @@ def save_resource_form(request, form, template_name):
 
 def ajax_table(request):
     table = ResourceTable(Resource.objects.all())
+    table.order_by = '-pub_date'
     RequestConfig(request, paginate={'per_page': 5}).configure(table)
     return HttpResponse(table.as_html(request))
