@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.core.exceptions import ImproperlyConfigured
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -20,12 +22,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qsd1+g@j-+*-be7!3+j)laqx^pld=b6jbc#20#q5ax!=cqouqv'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+
+
+def get_env_value(env_variable):
+    try:
+        return os.environ[env_variable]
+    except KeyError:
+        error_msg = 'Set the {} environment variable'.format(env_variable)
+        raise ImproperlyConfigured(error_msg)
 
 
 # Application definition
@@ -82,10 +92,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'journaldb',
-        'USER': 'harrylingardbright',
-        'PASSWORD': 'Bcasl2009',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'USER': os.environ.get("SQL_USER", "django.db.backends.sqlite3"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD", 'user'),
+        "HOST": os.environ.get("SQL_HOST", "127.0.0.1"),
+        'PORT': os.environ.get("SQL_PORT", "5432"),
     }
 }
 
@@ -143,4 +153,3 @@ CACHES = {
 
 # Tell select2 which cache configuration to use:
 SELECT2_CACHE_BACKEND = "select2"
-

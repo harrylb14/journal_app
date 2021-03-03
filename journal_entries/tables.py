@@ -38,6 +38,6 @@ class ResourceTable(tables.Table):
         return format_html(html)
 
     languages = tables.Column(accessor='all_languages')
-    frameworks = tables.Column(accessor='all_frameworks')
+    frameworks = tables.Column(accessor='all_frameworks', verbose_name='Frameworks/Technologies')
     edit = TemplateColumn(template_name='journal_entries/edit_button.html', verbose_name='')
     delete = TemplateColumn(template_name='journal_entries/delete_button.html', verbose_name='')
