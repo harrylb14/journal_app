@@ -1,15 +1,14 @@
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
-from django_tables2 import RequestConfig
 
-from .forms import ResourceForm
 import django_tables2 as tables
 
 from .models import Resource, Language, Framework
 from .tables import ResourceTable
+from .forms import ResourceForm
 
 
 class IndexView(tables.SingleTableView):
@@ -21,7 +20,6 @@ class IndexView(tables.SingleTableView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-
         form = ResourceForm()
         table = ResourceTable(self.get_queryset())
 
@@ -64,6 +62,7 @@ def update_resource_ajax(request, resource_id):
 def delete_resource_ajax(request, resource_id):
     resource = get_object_or_404(Resource, pk=resource_id)
     data = dict()
+
     if request.method == 'POST':
         resource.delete()
         data['form_is_valid'] = True
@@ -119,6 +118,7 @@ def ajax_search(request):
     data = {}
     search_term = request.GET['search'].strip()
     search_class = request.GET['class'].strip()
+
     if search_class == 'language':
         language = Language.objects.get(tag=search_term)
         resource_list = language.resource_set.all().order_by('-pub_date')
@@ -131,4 +131,3 @@ def ajax_search(request):
     data['html_resource_list'] = ResourceTable(resource_list).as_html(request)
 
     return JsonResponse(data)
-

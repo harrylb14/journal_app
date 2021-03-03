@@ -1,6 +1,5 @@
 from django import forms
 from django_select2.forms import Select2MultipleWidget
-
 from .models import Resource, Language, Framework
 
 
@@ -24,6 +23,7 @@ class ResourceForm(forms.ModelForm):
     language = forms.ModelMultipleChoiceField(
         label='Add Language',
         queryset=Language.objects.all(),
+        required=False,
         widget=Select2MultipleWidget(
             attrs={
                 'style': 'float: center; width: 370px',
@@ -35,6 +35,7 @@ class ResourceForm(forms.ModelForm):
     framework = forms.ModelMultipleChoiceField(
         label='Add Framework/Technology',
         queryset=Framework.objects.all(),
+        required=False,
         widget=Select2MultipleWidget(
             attrs={
                 'style': 'float: center; width: 370px',
@@ -42,5 +43,3 @@ class ResourceForm(forms.ModelForm):
             },
         )
     )
-
-

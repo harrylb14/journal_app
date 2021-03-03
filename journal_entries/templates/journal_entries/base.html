@@ -10,36 +10,24 @@
     <link rel="stylesheet" type="text/css" href="{% static 'journal_entries/css/style.css' %}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-        <script src="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"</script>
-      <script src="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"></script>
-
-
-
-    <![endif]-->
-      {{ form.media.css }}
+    {{ form.media.css }}
   </head>
 
   <body>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-       <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-       <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-<!--    include 'includes/header.html' -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <!--    include 'includes/header.html' -->
+
     <div class="container">
       {% block content %}
       {% endblock %}
     </div>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
     {% block javascript %}
-
     {% endblock %}
-
-  {{ form.media.js }}
+    {{ form.media.js }}
   </body>
 
 </html>

@@ -1,11 +1,8 @@
 {% extends 'journal_entries/base.html' %}
 {% load static %}
 {% load django_tables2 %}
-
-
 {% block javascript %}
-    <script src="{% static 'journal_entries/js/resource.js' %}"></script>
-    <script src="{% static 'journal_entries/js/search.js' %}"></script>
+    <script src="{% static 'journal_entries/js/table_ajax.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -25,10 +22,6 @@
 <br>
 
 {% include 'journal_entries/partial_resource_list.html' %}
-
-<script src="{% static 'journal_entries/js/datatable.js' %}"></script>
-
-<div id="footer"></div>
 
 <div class="modal fade" id="modal-resource">
     <div class="modal-dialog">
