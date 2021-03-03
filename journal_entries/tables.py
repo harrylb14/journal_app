@@ -25,13 +25,15 @@ class ResourceTable(tables.Table):
     def render_languages(self, value):
         html = ""
         for language in value:
-            html += f"<span class='language' id={language.lower()}> {language} </span>"
+            url = 'ajax_search/'
+            html += f"<a class='language' id={language.lower()} href={url}> {language} </a>"
 
         return format_html(html)
 
     def render_frameworks(self, value):
         html = ""
         for framework in value:
+            url = '{% url journal_entries:ajax_search'
             html += f"<span class='framework' id={framework.lower()}> {framework} </span>"
 
         return format_html(html)

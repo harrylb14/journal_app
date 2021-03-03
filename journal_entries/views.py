@@ -8,7 +8,7 @@ from django_tables2 import RequestConfig
 from .forms import ResourceForm
 import django_tables2 as tables
 
-from .models import Resource
+from .models import Resource, Language, Framework
 from .tables import ResourceTable
 
 
@@ -115,8 +115,20 @@ def save_resource_form(request, form, template_name):
     return JsonResponse(data)
 
 
-# def ajax_table(request):
-#     table = ResourceTable(Resource.objects.all())
-#     table.order_by = '-pub_date'
-#     RequestConfig(request, paginate={'per_page': 5}).configure(table)
-#     return HttpResponse(table.as_html(request))
+def ajax_search(request):
+    data = {}
+    search_term = request.GET['search'].strip()
+    search_class = request.GET['class'].strip()
+    if search_class == 'language':
+        language = Language.objects.get(tag=search_term)
+        resource_list = language.resource_set.all().order_by('-pub_date')
+    elif search_class == 'framework':
+        framework = Framework.objects.get(tag=search_term)
+        resource_list = framework.resource_set.all().order_by('-pub_date')
+    else:
+        resource_list = Resource.objects.all().order_by('-pub_date')
+
+    data['html_resource_list'] = ResourceTable(resource_list).as_html(request)
+
+    return JsonResponse(data)
+

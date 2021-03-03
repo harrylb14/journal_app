@@ -57,7 +57,11 @@ $(function () {
                 "pageLength": 5,
                 "lengthChange": false,
                 "order": [[ 3, "desc" ]],
-                "ordering": false
+                "ordering": false,
+                "columnDefs": [
+                 { width: 400, targets: [0,1,2,3] }
+                ],
+                "fixedColumns": true
             })
     }
 });

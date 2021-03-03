@@ -5,6 +5,7 @@
 
 {% block javascript %}
     <script src="{% static 'journal_entries/js/resource.js' %}"></script>
+    <script src="{% static 'journal_entries/js/search.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -18,6 +19,7 @@
         Add resource
     </button>
     <input id="myInputTextField" style="height: 40px; border-radius: 25px;" placeholder="search resources...">
+    <a id="hidden" class="search_filter"></a>
 </p>
 
 <br>
