@@ -39,6 +39,7 @@ $(function () {
                     ],
                     "fixedColumns": true
                 })
+
         $('.language').click(filter)
         $('.framework').click(filter)
         $('.search_filter').click(filter)

@@ -14,6 +14,8 @@ oTable = $('#resource_list').DataTable( {
 
 
 
+
+
 $('#myInputTextField').keyup(function(){
       $('#resource_list').DataTable().search($(this).val()).draw() ;
 });

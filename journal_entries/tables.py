@@ -7,7 +7,6 @@ from .models import Resource
 class ResourceTable(tables.Table):
     class Meta:
         model = Resource
-        # template_name = "journal_entries/resource_list.html"
         template_name = "django_tables2/bootstrap4.html"
         sequence = ('title', 'languages', 'frameworks', 'pub_date')
         exclude = ('id', 'description', 'link')
@@ -33,8 +32,8 @@ class ResourceTable(tables.Table):
     def render_frameworks(self, value):
         html = ""
         for framework in value:
-            url = '{% url journal_entries:ajax_search'
-            html += f"<span class='framework' id={framework.lower()}> {framework} </span>"
+            url = 'ajax_search/'
+            html += f"<a class='framework' id={framework.lower()} href={url}> {framework} </a>"
 
         return format_html(html)
 

@@ -19,7 +19,7 @@
         Add resource
     </button>
     <input id="myInputTextField" style="height: 40px; border-radius: 25px;" placeholder="search resources...">
-    <a id="hidden" class="search_filter"></a>
+    <a id="hidden" class="search_filter" href="{% url 'journal_entries:ajax_search' %}" style="text-decoration: none;"></a>
 </p>
 
 <br>
@@ -27,6 +27,8 @@
 {% include 'journal_entries/partial_resource_list.html' %}
 
 <script src="{% static 'journal_entries/js/datatable.js' %}"></script>
+
+<div id="footer"></div>
 
 <div class="modal fade" id="modal-resource">
     <div class="modal-dialog">

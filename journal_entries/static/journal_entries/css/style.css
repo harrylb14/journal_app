@@ -156,3 +156,10 @@
 #hidden.search_filter{
     visibility: hidden;
 }
+
+#footer {
+    position: fixed;
+    bottom: 50%;
+    height: 30px;
+    width: 100%;
+}
