@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      journal: web
+  template:
+    metadata:
+      labels:
+        journal: web
+    spec:
+      containers:
+        - name: journal-container
+          image: python:3.8.3-alpine
+          ports:
+            - containerPort: 8000
+          command: ["/bin/bash", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+        - name: journal-db
+          image: postgres
+          ports:
+            - containerPort: 5432
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: journal-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    journal: web
+  ports:
+  - port: 8000
+    targetPort: 8000
+    nodePort: 30001
