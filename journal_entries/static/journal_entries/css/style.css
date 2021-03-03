@@ -1,3 +1,31 @@
+:root {
+    --python: blue;
+    --sql: rgb(1, 131, 136); 
+    --javascript: rgb(255, 145, 0);
+    --c: rgb(99, 99, 99);
+    --ruby: red;
+    --java: purple;
+    --csharp: rgb(114, 114, 114);
+    --html: green;
+    --php: rgb(252, 132, 152);
+    --general: black;
+    --kubernetes: rgb(0, 253, 169);
+    --docker: rgb(112, 112, 112);
+
+    --pythonhover: rgb(132, 132, 252);
+    --sqlhover: rgb(13, 189, 196); 
+    --javascripthover: rgb(238, 192, 132);
+    --chover: rgb(112, 112, 112);
+    --rubyhover: rgb(255, 142, 142);
+    --javahover: rgb(182, 44, 182);
+    --csharphover: rgb(167, 165, 165);
+    --htmlhover: rgb(79, 160, 79);
+    --phphover: rgb(250, 176, 188);
+    --generalhover: rgb(102, 102, 102);
+    --dockerhover: rgba(197, 197, 197, 0.726);
+    --kuberneteshover: rgb(1, 153, 102);
+}
+
 .language{
     display:inline-block;
     max-width:50%;
@@ -10,15 +38,84 @@
     line-height:30px;
     text-align: center;
     text-decoration:none;
-    background:#000;
+    background:var(--general);
     clear: left;
 }
 .language:hover{
     color:#ccc;
     text-decoration:none;
-    background:#333
+    background: var(--generalhover)
 }
 
+#python, #django, #flask{
+    background: var(--python);
+}
+#python:hover, #django:hover, #flask:hover{
+    background: var(--pythonhover);
+}
+
+#javascript, #angular, #react{
+    background: var(--javascript);
+}
+#javascript:hover, #angular:hover, #react:hover{
+    background: var(--javascripthover);
+}
+
+#java, #spring{
+    background: var(--java);
+}
+
+#java:hover, #spring:hover{
+    background: var(--javahover);
+}
+
+#ruby, #rails{
+    background: var(--ruby);
+}
+#ruby:hover, #rails:hover{
+    background: var(--rubyhover)
+}
+#sql, #postgresql, #mysql{
+    background: var(--sql)
+}
+#sql:hover, #postgresql:hover, #mysql:hover{
+    background: var(--sqlhover)
+}
+#c{
+    background: var(--c);
+}
+#c:hover{
+    background: var(--chover);
+}
+#csharp{
+    background: var(--csharp);
+}
+#csharp:hover{
+    background: var(--csharphover);
+}#html{
+    background: var(--html);
+}
+#html:hover{
+    background: var(--htmlhover);
+}
+#php{
+    background: var(--php);
+}
+#php:hover{
+    background: var(--phphover);
+}
+#docker{
+    background: var(--docker);
+}
+#docker:hover{
+    background: var(--dockerhover);
+}
+#kubernetes{
+    background: var(--kubernetes);
+}
+#kubernetes:hover{
+    background: var(--kuberneteshover);
+}
 .framework{
     display:inline-block;
     max-width:50%;
@@ -31,11 +128,11 @@
     line-height:30px;
     text-align: center;
     text-decoration:none;
-    background:#000;
+    background: var(--general);
     clear: left;
 }
 .framework:hover{
     color:#ccc;
     text-decoration:none;
-    background:#333
+    background:var(--generalhover)
 }

@@ -25,14 +25,14 @@ class ResourceTable(tables.Table):
     def render_languages(self, value):
         html = ""
         for language in value:
-            html += f"<span class='language' id={language}> {language} </span>"
+            html += f"<span class='language' id={language.lower()}> {language} </span>"
 
         return format_html(html)
 
     def render_frameworks(self, value):
         html = ""
         for framework in value:
-            html += f"<span class='framework' id={framework}> {framework} </span>"
+            html += f"<span class='framework' id={framework.lower()}> {framework} </span>"
 
         return format_html(html)
 

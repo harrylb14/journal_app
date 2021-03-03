@@ -46,7 +46,7 @@
     "model": "journal_entries.language",
     "pk": 7,
     "fields": {
-      "tag": "HTML/CSS"
+      "tag": "HTML"
     }
   },
   {
