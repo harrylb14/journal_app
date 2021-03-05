@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journal
+  labels:
+    app: journal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: journal
+  template:
+    metadata:
+      labels:
+        app: journal
+    spec:
+      containers:
+        - name: journal-container
+          image: harrylb/journal_web:latest
+#          command: ["./manage.py", "runserver", "0.0.0.0:8000"]
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+            - name: DJANGO_ALLOWED_HOSTS
+              value: '*'
+
+            - name: SQL_HOST
+              value: 10.107.195.53

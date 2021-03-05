@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: my-ingress-nginx
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: 10.99.112.27
+    http: &rules
+      paths:
+      - path: /path/to
+        backend:
+          serviceName: /static/
+          servicePort: 8000
+      - path: /
+        backend:
+          serviceName: /
+          servicePort: 8000

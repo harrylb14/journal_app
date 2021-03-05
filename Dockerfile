@@ -15,4 +15,6 @@ RUN \
 # copy project
 COPY . .
 
+EXPOSE 8000
+
 ENTRYPOINT ["/usr/src/entrypoint.sh"]

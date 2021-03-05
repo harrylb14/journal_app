@@ -6,22 +6,28 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      journal: web
+      app: journal
   template:
     metadata:
       labels:
-        journal: web
+        app: journal
     spec:
       containers:
         - name: journal-container
-          image: python:3.8.3-alpine
+          image: harrylb/journal_web:latest
           ports:
             - containerPort: 8000
-          command: ["/bin/bash", "-ec", "while :; do echo '.'; sleep 5 ; done"]
-        - name: journal-db
-          image: postgres
-          ports:
-            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: journal-secrets
+
+      volumes:
+        - name: postgres
+
+
+
+
+
 ---
 
 apiVersion: v1
